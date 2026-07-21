@@ -27,9 +27,9 @@ class DataLoader:
         self.dataset_path = dataset_path
         self.dataframe = None
 
-    # =====================================================
+   
     # Load Dataset
-    # =====================================================
+    
 
     def load_dataset(self):
         """
@@ -68,9 +68,9 @@ class DataLoader:
                 f"Error loading dataset:\n{e}"
             )
 
-    # =====================================================
+    
     # Preview Dataset
-    # =====================================================
+   
 
     def preview(self, rows=5):
         """
@@ -79,9 +79,9 @@ class DataLoader:
 
         return self.dataframe.head(rows)
 
-    # =====================================================
+   
     # Dataset Shape
-    # =====================================================
+    
 
     def dataset_shape(self):
         """
@@ -90,9 +90,8 @@ class DataLoader:
 
         return self.dataframe.shape
 
-    # =====================================================
-    # Column Names
-    # =====================================================
+    
+    # Column Names 
 
     def column_names(self):
         """
@@ -101,9 +100,9 @@ class DataLoader:
 
         return list(self.dataframe.columns)
 
-    # =====================================================
+    
     # Data Types
-    # =====================================================
+    
 
     def data_types(self):
         """
@@ -112,9 +111,9 @@ class DataLoader:
 
         return self.dataframe.dtypes
 
-    # =====================================================
+   
     # Missing Values
-    # =====================================================
+    
 
     def missing_values(self):
         """
@@ -123,9 +122,9 @@ class DataLoader:
 
         return self.dataframe.isnull().sum()
 
-    # =====================================================
+    
     # Duplicate Rows
-    # =====================================================
+   
 
     def duplicate_rows(self):
         """
@@ -134,9 +133,9 @@ class DataLoader:
 
         return self.dataframe.duplicated().sum()
 
-    # =====================================================
+    
     # Memory Usage
-    # =====================================================
+    
 
     def memory_usage(self):
         """
@@ -150,9 +149,9 @@ class DataLoader:
 
         return round(memory, 2)
 
-    # =====================================================
+    
     # Dataset Summary
-    # =====================================================
+    
 
     def dataset_summary(self):
         """
@@ -176,9 +175,9 @@ class DataLoader:
 
         print("=" * 60)
 
-    # =====================================================
+   
     # Get DataFrame
-    # =====================================================
+    
 
     def get_dataframe(self):
         """

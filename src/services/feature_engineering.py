@@ -1,13 +1,14 @@
 """
-============================================================
+
 Smart City Road Accident Analytics
 Feature Engineering Module
-============================================================
 
-Responsible for:
-    - Creating New Features
-    - Improving Dataset Quality
-    - Preparing Data for EDA & ML
+
+Responsible For:
+    - Feature Creation
+    - Data Enrichment
+    - Preparing Dataset for EDA
+    - Preparing Dataset for Machine Learning
 """
 
 import numpy as np
@@ -16,17 +17,17 @@ import pandas as pd
 
 class FeatureEngineer:
 
-    # =====================================================
+    
     # Constructor
-    # =====================================================
+    
 
     def __init__(self, dataframe: pd.DataFrame):
 
         self.dataframe = dataframe.copy()
 
-    # =====================================================
+   
     # Time Of Day
-    # =====================================================
+   
 
     def create_time_of_day(self):
 
@@ -42,8 +43,11 @@ class FeatureEngineer:
 
             self.dataframe["hour"].between(17, 20),
 
-            (self.dataframe["hour"] >= 21)
-            | (self.dataframe["hour"] <= 4)
+            (
+                self.dataframe["hour"] >= 21
+            ) | (
+                self.dataframe["hour"] <= 4
+            )
 
         ]
 
@@ -71,9 +75,9 @@ class FeatureEngineer:
 
         print("✓ time_of_day created")
 
-    # =====================================================
+   
     # Driver Age Group
-    # =====================================================
+    
 
     def create_age_group(self):
 
@@ -117,9 +121,9 @@ class FeatureEngineer:
 
         print("✓ driver_age_group created")
 
-    # =====================================================
+    
     # Season
-    # =====================================================
+    
 
     def create_season(self):
 
@@ -163,9 +167,207 @@ class FeatureEngineer:
 
         print("✓ season created")
 
-    # =====================================================
+            
+    # Speed Category
+    
+
+    def create_speed_category(self):
+
+        print("\n" + "=" * 70)
+        print("CREATING SPEED CATEGORY")
+        print("=" * 70)
+
+        conditions = [
+
+            self.dataframe["average_speed"] < 30,
+
+            self.dataframe["average_speed"].between(30, 60),
+
+            self.dataframe["average_speed"] > 60
+
+        ]
+
+        choices = [
+
+            "Low",
+
+            "Medium",
+
+            "High"
+
+        ]
+
+        self.dataframe["speed_category"] = np.select(
+
+            conditions,
+
+            choices,
+
+            default="Unknown"
+
+        )
+
+        print("✓ speed_category created")
+
+   
+    # Risk Band
+    
+
+    def create_risk_band(self):
+
+        print("\n" + "=" * 70)
+        print("CREATING RISK BAND")
+        print("=" * 70)
+
+        conditions = [
+
+            self.dataframe["risk_score"] < 20,
+
+            self.dataframe["risk_score"].between(20, 40),
+
+            self.dataframe["risk_score"].between(41, 60),
+
+            self.dataframe["risk_score"].between(61, 80),
+
+            self.dataframe["risk_score"] > 80
+
+        ]
+
+        choices = [
+
+            "Very Low",
+
+            "Low",
+
+            "Moderate",
+
+            "High",
+
+            "Very High"
+
+        ]
+
+        self.dataframe["risk_band"] = np.select(
+
+            conditions,
+
+            choices,
+
+            default="Unknown"
+
+        )
+
+        print("✓ risk_band created")
+
+    
+    # Month Name
+    
+
+    def create_month_name(self):
+
+        print("\n" + "=" * 70)
+        print("CREATING MONTH NAME")
+        print("=" * 70)
+
+        month_map = {
+
+            1: "January",
+            2: "February",
+            3: "March",
+            4: "April",
+            5: "May",
+            6: "June",
+            7: "July",
+            8: "August",
+            9: "September",
+            10: "October",
+            11: "November",
+            12: "December"
+
+        }
+
+        self.dataframe["month_name"] = (
+
+            self.dataframe["month"]
+
+            .map(month_map)
+
+        )
+
+        print("✓ month_name created")
+
+    
+    # Quarter
+   
+
+    def create_quarter(self):
+
+        print("\n" + "=" * 70)
+        print("CREATING QUARTER")
+        print("=" * 70)
+
+        conditions = [
+
+            self.dataframe["month"].between(1, 3),
+
+            self.dataframe["month"].between(4, 6),
+
+            self.dataframe["month"].between(7, 9),
+
+            self.dataframe["month"].between(10, 12)
+
+        ]
+
+        choices = [
+
+            "Q1",
+
+            "Q2",
+
+            "Q3",
+
+            "Q4"
+
+        ]
+
+        self.dataframe["quarter"] = np.select(
+
+            conditions,
+
+            choices,
+
+            default="Unknown"
+
+        )
+
+        print("✓ quarter created")
+
+   
+    # Peak Hour
+   
+
+    def create_peak_hour(self):
+
+        print("\n" + "=" * 70)
+        print("CREATING PEAK HOUR")
+        print("=" * 70)
+
+        self.dataframe["is_peak_hour"] = (
+
+            self.dataframe["hour"].between(8, 10)
+
+            |
+
+            self.dataframe["hour"].between(17, 20)
+
+        )
+
+        print("✓ is_peak_hour created")
+
+
+            
     # Feature Summary
-    # =====================================================
+   
 
     def feature_summary(self):
 
@@ -174,24 +376,63 @@ class FeatureEngineer:
         print("=" * 70)
 
         print(f"Rows    : {self.dataframe.shape[0]}")
-
         print(f"Columns : {self.dataframe.shape[1]}")
 
         print("\nNew Features Added")
+        print("-" * 40)
 
-        print("-------------------------")
+        features = [
 
-        print("✓ time_of_day")
+            "time_of_day",
+            "driver_age_group",
+            "season",
+            "speed_category",
+            "risk_band",
+            "month_name",
+            "quarter",
+            "is_peak_hour"
 
-        print("✓ driver_age_group")
+        ]
 
-        print("✓ season")
+        for feature in features:
+
+            print(f"✓ {feature}")
 
         print("=" * 70)
 
-    # =====================================================
-    # Execute Pipeline
-    # =====================================================
+    
+    # Save Featured Dataset
+    
+
+    def save_featured_dataset(
+        self,
+        output_path="../data/featured/featured_accident_dataset.csv"
+    ):
+
+        import os
+
+        os.makedirs(
+            os.path.dirname(output_path),
+            exist_ok=True
+        )
+
+        self.dataframe.to_csv(
+
+            output_path,
+
+            index=False
+
+        )
+
+        print("\n" + "=" * 70)
+        print("FEATURED DATASET SAVED")
+        print("=" * 70)
+        print(output_path)
+        print("=" * 70)
+
+   
+    # Execute Feature Engineering Pipeline
+    
 
     def engineer(self):
 
@@ -206,16 +447,30 @@ class FeatureEngineer:
 
         self.create_season()
 
+        self.create_speed_category()
+
+        self.create_risk_band()
+
+        self.create_month_name()
+
+        self.create_quarter()
+
+        self.create_peak_hour()
+
         self.feature_summary()
+
+        self.save_featured_dataset()
 
         print("=" * 70)
         print("FEATURE ENGINEERING COMPLETED")
         print("=" * 70)
 
-    # =====================================================
+   
     # Return DataFrame
-    # =====================================================
-
+   
     def get_dataframe(self):
 
         return self.dataframe
+
+
+

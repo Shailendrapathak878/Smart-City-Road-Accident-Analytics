@@ -1,8 +1,8 @@
 """
-============================================================
+
 Smart City Road Accident Analytics
 Data Cleaner Module (V3)
-============================================================
+
 
 Responsible for:
     - Dataset Inspection
@@ -29,17 +29,17 @@ class DataCleaner:
     Professional Data Cleaning Engine.
     """
 
-    # =====================================================
+    
     # Constructor
-    # =====================================================
+    
 
     def __init__(self, dataframe: pd.DataFrame):
 
         self.dataframe = dataframe.copy()
 
-    # =====================================================
+    
     # Dataset Report
-    # =====================================================
+    
 
     def dataset_report(self):
 
@@ -66,9 +66,9 @@ class DataCleaner:
 
         self.categorical_summary()
 
-    # =====================================================
+    
     # Missing Value Report
-    # =====================================================
+   
 
     def missing_report(self):
 
@@ -98,9 +98,9 @@ class DataCleaner:
 
         return missing
 
-    # =====================================================
+   
     # Duplicate Report
-    # =====================================================
+   
 
     def duplicate_report(self):
 
@@ -116,9 +116,9 @@ class DataCleaner:
 
         return duplicates
 
-    # =====================================================
+   
     # Data Type Report
-    # =====================================================
+    
 
     def datatype_report(self):
 
@@ -132,9 +132,9 @@ class DataCleaner:
 
         return self.dataframe.dtypes
 
-    # =====================================================
+    
     # Numeric Summary
-    # =====================================================
+    
 
     def numeric_summary(self):
 
@@ -156,9 +156,9 @@ class DataCleaner:
 
         print("=" * 70)
 
-    # =====================================================
+    
     # Categorical Summary
-    # =====================================================
+    
 
     def categorical_summary(self):
 
@@ -180,9 +180,9 @@ class DataCleaner:
 
         print("=" * 70)
 
-            # =====================================================
+           
     # Handle Missing Values (Config Based)
-    # =====================================================
+    
 
     def handle_missing_values(self):
 
@@ -202,9 +202,9 @@ class DataCleaner:
 
             method = rule.get("method")
 
-            # -----------------------------------------
+            
             # Median
-            # -----------------------------------------
+            
 
             if method == "median":
 
@@ -220,9 +220,9 @@ class DataCleaner:
                     f"Median Applied ({missing} values)"
                 )
 
-            # -----------------------------------------
+           
             # Mode
-            # -----------------------------------------
+            
 
             elif method == "mode":
 
@@ -238,9 +238,9 @@ class DataCleaner:
                     f"Mode Applied ({missing} values)"
                 )
 
-            # -----------------------------------------
+           
             # Business Rule
-            # -----------------------------------------
+            
 
             elif method == "business_rule":
 
@@ -256,10 +256,9 @@ class DataCleaner:
                     f"Business Rule Applied ({missing} values)"
                 )
 
-            # -----------------------------------------
+            
             # Constant Value
-            # -----------------------------------------
-
+            
             elif method == "constant":
 
                 default = rule.get("default")
@@ -276,9 +275,9 @@ class DataCleaner:
 
         print("=" * 70)
 
-    # =====================================================
+    
     # Apply Business Rules
-    # =====================================================
+    
 
     def apply_business_rules(self):
 
@@ -336,9 +335,9 @@ class DataCleaner:
 
         print("=" * 70)
 
-    # =====================================================
+    
     # Remove Duplicate Rows
-    # =====================================================
+    
 
     def remove_duplicates(self):
 
@@ -362,9 +361,9 @@ class DataCleaner:
 
         print("=" * 70)
 
-            # =====================================================
+            
     # Fix Data Types
-    # =====================================================
+    
 
     def fix_data_types(self):
 
@@ -422,9 +421,9 @@ class DataCleaner:
 
         print("=" * 70)
 
-    # =====================================================
+    
     # Validate Data Ranges
-    # =====================================================
+   
 
     def validate_ranges(self):
 
@@ -464,9 +463,9 @@ class DataCleaner:
 
         print("=" * 70)
 
-    # =====================================================
+    
     # Standardize Text
-    # =====================================================
+    
 
     def standardize_text(self):
 
@@ -510,9 +509,9 @@ class DataCleaner:
 
         print("=" * 70)
 
-    # =====================================================
+    
     # Save Clean Dataset
-    # =====================================================
+    
 
     def save_clean_dataset(
         self,
@@ -537,9 +536,9 @@ class DataCleaner:
 
         print("=" * 70)
 
-    # =====================================================
+   
     # Return DataFrame
-    # =====================================================
+    
 
     def get_dataframe(self):
 
@@ -547,9 +546,9 @@ class DataCleaner:
 
 
 
-            # =====================================================
+            
     # Cleaning Summary
-    # =====================================================
+   
 
     def cleaning_summary(self):
 
@@ -577,9 +576,9 @@ class DataCleaner:
 
         print("=" * 70)
 
-    # =====================================================
+    
     # Execute Complete Cleaning Pipeline
-    # =====================================================
+    
 
     def clean(self):
 
